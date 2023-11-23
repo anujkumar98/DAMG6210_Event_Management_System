@@ -39,13 +39,12 @@ SELECT
     t.ticket_category_name,
     t.ticket_seats AS total_seats,
     t.ticket_price,
-    NVL(SUM(b.booking_ticket_count), 0) AS booked_seats,
-    t.ticket_seats - NVL(SUM(b.booking_ticket_count), 0) AS remaining_seats
-FROM
-    TICKET t
-LEFT JOIN
-    BOOKING b ON t.ticket_id = b.ticket_id
-WHERE
-    (b.booking_status IS NULL OR b.booking_status <> 'Confirmed')
-GROUP BY
-    t.ticket_id, t.event_id, t.ticket_category_name, t.ticket_seats,t.ticket_price;
+    NVL(SUM(CASE WHEN b.booking_status = 'Confirmed' THEN b.booking_ticket_count ELSE 0 END), 0) AS booked_seats,
+    t.ticket_seats - NVL(SUM(CASE WHEN b.booking_status = 'Confirmed' THEN b.booking_ticket_count ELSE 0 END), 0) AS remaining_seats
+    FROM
+        TICKET t
+    LEFT JOIN
+        BOOKING b ON t.ticket_id = b.ticket_id
+    GROUP BY
+         t.ticket_id, t.event_id, t.ticket_category_name, t.ticket_seats, t.ticket_price;
+
