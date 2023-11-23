@@ -43,6 +43,9 @@ Connect as  <b>EVENT_APP_ADMIN</b> into the database.
 Run the <b>ProcedureInsertData.sql</b> to create procedures for DML.
 </li>
 <li>
+Run the <b>InsertData.sql</b> to populate the data.
+</li>
+<li>
 Incase of errors <b>ProcedureCleanup.sql</b> can be run to drop tables, constraints, views, sequences and users.
 </li>
 </ol>
