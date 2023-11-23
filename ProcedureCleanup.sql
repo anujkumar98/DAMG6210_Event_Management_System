@@ -4,6 +4,44 @@
 -- Drop users
 
 SET SERVEROUTPUT ON;
+DECLARE
+    v_view_name VARCHAR2(50);
+    v_view_count NUMBER;
+BEGIN
+    FOR i IN (
+        WITH views_users AS (
+            SELECT 'venue_availability' AS view_name FROM dual
+            UNION ALL
+            SELECT 'EventSeatAvailability' AS view_name FROM dual
+            UNION ALL
+            SELECT 'TicketCategoryAvailability' AS view_name FROM dual
+        )
+        SELECT view_name
+        FROM user_views
+    ) LOOP
+        v_view_name := i.view_name;
+
+        -- Check if the view exists in user_views
+        SELECT COUNT(*)
+        INTO v_view_count
+        FROM user_views
+        WHERE view_name = v_view_name;
+
+        IF v_view_count = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('View ' || v_view_name || ' does not exist.');
+        ELSE
+            -- Drop the view
+            EXECUTE IMMEDIATE 'DROP VIEW ' || v_view_name;
+            
+            DBMS_OUTPUT.PUT_LINE('View ' || v_view_name || ' dropped.');
+        END IF;
+    END LOOP;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+
 --Drop tables
 DECLARE
     v_table_exists VARCHAR2(1) := 'Y';
