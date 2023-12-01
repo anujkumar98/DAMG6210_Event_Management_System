@@ -1,0 +1,124 @@
+/* 
+    ADD DATA INTO ATTENDEE,BOOKING AND REVIEWS TABLES
+    THIS SCRIPT SHOULD BE RUN BY ATTENDEE.
+*/
+
+SET SERVEROUTPUT ON;
+alter session set nls_timestamp_format = 'DD-MON-RR HH.MI';
+
+------------------------ Attendee Data ------------------------
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('alice_smith', 'Alice', 'Smith', 'alice.smith@email.com', '9876543210', 30, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('bob_jones', 'Bob', 'Jones', 'bob.jones@email.com', '8765432109', 28, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('carol_davis', 'Carol', 'Davis', 'carol.davis@email.com', '7654321098', 35, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('david_clark', 'David', 'Clark', 'david.clark@email.com', '6543210987', 25, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('emma_wilson', 'Emma', 'Wilson', 'emma.wilson@email.com', '5432109876', 40, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('frank_miller', 'Frank', 'Miller', 'frank.miller@email.com', '4321098765', 32, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('grace_taylor', 'Grace', 'Taylor', 'grace.taylor@email.com', '3210987654', 28, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('henry_brown', 'Henry', 'Brown', 'henry.brown@email.com', '2109876543', 45, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('isabel_rodriguez', 'Isabel', 'Rodriguez', 'isabel.rodriguez@email.com', '1098765432', 31, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('jason_carter', 'Jason', 'Carter', 'jason.carter@email.com', '9876543210', 29, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('karen_anderson', 'Karen', 'Anderson', 'karen.anderson@email.com', '8765432109', 33, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('leonard_morris', 'Leonard', 'Morris', 'leonard.morris@email.com', '7654321098', 27, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('mia_hernandez', 'Mia', 'Hernandez', 'mia.hernandez@email.com', '6543210987', 36, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('nathan_clark', 'Nathan', 'Clark', 'nathan.clark@email.com', '5432109876', 26, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('olivia_lee', 'Olivia', 'Lee', 'olivia.lee@email.com', '4321098765', 29, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('peter_baker', 'Peter', 'Baker', 'peter.baker@email.com', '3210987654', 34, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('quinn_fisher', 'Quinn', 'Fisher', 'quinn.fisher@email.com', '2109876543', 30, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('ryan_hill', 'Ryan', 'Hill', 'ryan.hill@email.com', '1098765432', 32, 'Male');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('sophie_green', 'Sophie', 'Green', 'sophie.green@email.com', '9876543210', 27, 'Female');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_ATTENDEE('thomas_jenkins', 'Thomas', 'Jenkins', 'thomas.jenkins@email.com', '8765432109', 33, 'Male');
+
+-------------------- Bookings ------------------------
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'carol_davis', NULL, 'Wellness Seeker', 'Health and Wellness Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'jason_carter', NULL, 'General Admission', 'Tech Conference');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'ryan_hill', 'DATAHUB', 'Master Analyst', 'Data Science Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'david_clark', NULL, 'VIP Access', 'Tech Conference');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'henry_brown', 'ENTREPRENOW', 'Startup Roundtable', 'Entrepreneurship Forum');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'isabel_rodriguez', 'CAREERBOOST', 'Executive Networking', 'Career Development Mixer');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'carol_davis', NULL, 'Space Explorer', 'Space Exploration Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'jason_carter', 'CONNECTPLUS', 'VIP Networking', 'Networking Mixer');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'frank_miller', 'FILMFEST', 'Film Industry Pass', 'Film Industry Mixer');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'quinn_fisher', 'AIFUTURE', 'AI Expert', 'Artificial Intelligence Symposium');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'emma_wilson', NULL, 'Robotics Enthusiast', 'Robotics Symposium');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'alice_smith', NULL, 'Coding Enthusiast', 'Coding Bootcamp');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'carol_davis', 'ENTREPRENOW', 'Startup Roundtable', 'Entrepreneurship Forum');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'henry_brown', 'LEGALINSIGHT', 'Legal Insights', 'Legal Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'nathan_clark', 'SPACENEXT', 'Stellar Voyager', 'Space Exploration Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'thomas_jenkins', 'CODEMASTER', 'Code Master', 'Coding Bootcamp');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'leonard_morris', 'STARTUPSPARK', 'Startup Enthusiast', 'Startup Networking');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'karen_anderson', NULL, 'Startup Roundtable', 'Entrepreneurship Forum');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'frank_miller', NULL, 'Web Development Workshop', 'Web Development Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'quinn_fisher', 'AIFUTURE', 'AI Explorer', 'Artificial Intelligence Symposium');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'grace_taylor', 'TECH20NOW', 'Early Bird', 'Tech Conference');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'ryan_hill', 'WEBWONDER', 'Web Dev Enthusiast', 'Web Development Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'grace_taylor', NULL, 'Finance Buff', 'Finance Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'peter_baker',NULL, 'Legal Expert', 'Legal Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'david_clark', 'MARKETEDGE', 'Marketing Pro', 'Marketing Summit');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'ryan_hill', 'CODEMASTER', 'Coding Enthusiast', 'Coding Bootcamp');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'henry_brown', NULL, 'Fashion Enthusiast', 'Fashion Show');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'quinn_fisher', 'STARTUPSPARK', 'Startup Enthusiast', 'Startup Networking');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'ryan_hill', NULL, 'Finance Guru', 'Finance Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'thomas_jenkins', 'ENTREPRENOW', 'Startup Roundtable', 'Entrepreneurship Forum');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'carol_davis', 'FINWISE', 'Finance Buff', 'Finance Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'karen_anderson', 'DATAHUB', 'Master Analyst', 'Data Science Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'alice_smith', NULL, 'Leadership Enthuast', 'Leadership Summit');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'frank_miller', 'STARTUPSPARK', 'Startup Enthusiast', 'Startup Networking');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'thomas_jenkins', 'ROBOINNOVATE', 'Robotics Enthusiast', 'Robotics Symposium');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'peter_baker', NULL, 'Stellar Voyager', 'Space Exploration Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'thomas_jenkins', 'ENTREPRENOW', 'Startup Roundtable', 'Entrepreneurship Forum');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'karen_anderson', 'TECH20NOW', 'VIP Access', 'Tech Conference');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'quinn_fisher', NULL, 'Executive Networking', 'Career Development Mixer');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'jason_carter', 'FILMFEST', 'Film Industry Pass', 'Film Industry Mixer');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'olivia_lee', 'LEGALINSIGHT', 'Legal Insights', 'Legal Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'nathan_clark', NULL, 'Web Dev Pro', 'Web Development Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'sophie_green', 'WELLNESSJOY', 'Wellness Seeker', 'Health and Wellness Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(5, 'ryan_hill', 'TECH20NOW', 'Early Bird', 'Tech Conference');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(3, 'david_clark', 'DATAHUB', 'Data Enthusiast', 'Data Science Workshop');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'sophie_green', 'Marketing Pro', 'Marketing Pro', 'Marketing Summit');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'grace_taylor', 'FINWISE', 'Finance Guru', 'Finance Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(5, 'karen_anderson', 'STARTUPSPARK', 'Startup Enthusiast', 'Startup Networking');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(4, 'olivia_lee', 'WELLNESSJOY', 'Wellness Pro', 'Health and Wellness Seminar');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'karen_anderson', NULL, 'VIP Access', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'quinn_fisher', NULL, 'VIP Access', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'thomas_jenkins', 'STARTUP20', 'Early Bird', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'david_clark', 'STARTUP20', 'Early Bird', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(2, 'nathan_clark', NULL, 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'ryan_hill', 'STARTUP20', 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'carol_davis', NULL, 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'sophie_green', 'STARTUP20', 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'david_clark', 'STARTUP20', 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'sophie_green', 'STARTUP20', 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'grace_taylor', NULL, 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'alice_smith', NULL, 'General Admission', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'karen_anderson', 'STARTUP20', 'Early Bird', 'Startup Pitch Event');
+EXEC EVENT_APP_ADMIN.pkg_attendee.add_booking(1, 'olivia_lee', 'STARTUP20', 'VIP Access', 'Startup Pitch Event');
+
+-------------------- Reviews ------------------------
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Awesome presentation.', 'Web Development Workshop', 'alice_smith');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Insightful discussions.', 'Artificial Intelligence Symposium', 'quinn_fisher');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Great event! Learned a lot.', 'Business Seminar', 'alice_smith');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Awesome presentation.', 'Networking Mixer', 'bob_jones');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Insightful discussions.', 'Marketing Summit', 'carol_davis');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Well-organized conference.', 'Artificial Intelligence Symposium', 'david_clark');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Inspirational speakers.', 'Career Development Mixer', 'emma_wilson');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Enjoyed the networking session.', 'Health and Wellness Seminar', 'frank_miller');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Fantastic event!', 'Web Development Workshop', 'grace_taylor');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Thoroughly enjoyed the workshop.', 'Robotics Symposium', 'henry_brown');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Interesting insights into finance.', 'Social Media Networking', 'isabel_rodriguez');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Impressive fashion show.', 'Fashion Show', 'jason_carter');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Tech innovation at its best.', 'Tech Conference', 'karen_anderson');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Great atmosphere at the mixer.', 'Coding Bootcamp', 'leonard_morris');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Informative coding bootcamp.', 'Career Development Mixer', 'nathan_clark');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Networking success!', 'Health and Wellness Seminar', 'olivia_lee');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Highly recommend!', 'Web Development Workshop', 'peter_baker');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Fashion gala was fantastic.', 'Robotics Symposium', 'quinn_fisher');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Great insights into entrepreneurship.', 'Business Seminar', 'ryan_hill');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Networking opportunities were excellent.', 'Networking Mixer', 'sophie_green');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Marketing strategies discussed were very informative.', 'Marketing Summit', 'thomas_jenkins');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('AI advancements showcased were impressive.', 'Artificial Intelligence Symposium', 'carol_davis');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Career development insights were valuable.', 'Career Development Mixer', 'peter_baker');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Health and wellness tips provided were beneficial.', 'Health and Wellness Seminar', 'bob_jones');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Web development workshop was hands-on and practical.', 'Web Development Workshop', 'mia_hernandez');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Robotics symposium exceeded expectations.', 'Robotics Symposium', 'thomas_jenkins');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Engaging discussions on social media networking.', 'Social Media Networking', 'david_clark');
+EXEC EVENT_APP_ADMIN.pkg_attendee.ADD_REVIEW('Fashion show showcased creative designs.', 'Fashion Show', 'brandon_davis');

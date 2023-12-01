@@ -1,3 +1,4 @@
+SET SERVEROUTPUT ON;
 -- Create tables 
 -- Check if the table 'attendee' exists in the user's schema
 DECLARE
@@ -250,4 +251,35 @@ BEGIN
     END IF;
 
 END add_foreign_key_constraint;
+/
+
+
+
+-- Added attendee audit table to store the deleted user records
+DECLARE
+    V_TABLE_EXISTS VARCHAR(1) := 'N';
+    V_CREATE_TABLE VARCHAR(2500);
+BEGIN
+SELECT 'Y'
+    INTO V_TABLE_EXISTS
+    FROM USER_TABLES
+  WHERE TABLE_NAME = 'ATTENDEE_AUDIT';
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+    V_CREATE_TABLE := '
+    CREATE TABLE ATTENDEE_AUDIT (
+        attendee_username VARCHAR2(25 CHAR) NOT NULL,
+        attendee_id INTEGER NOT NULL,
+        attendee_firstname VARCHAR2(45 CHAR) NOT NULL,
+        attendee_lastname VARCHAR2(45 CHAR),
+        attendee_email VARCHAR2(45 CHAR) NOT NULL,
+        attendee_mobile_no VARCHAR2(45 CHAR) NOT NULL,
+        attendee_age INTEGER NOT NULL ,
+        attendee_gender VARCHAR2 ( 10 CHAR ),
+        attendee_created_at TIMESTAMP,
+        attendee_deleted_date TIMESTAMP DEFAULT SYSTIMESTAMP
+    )';  
+     EXECUTE IMMEDIATE V_CREATE_TABLE;
+     EXECUTE IMMEDIATE 'ALTER TABLE ATTENDEE_AUDIT ADD CONSTRAINT attendee_audit_pk PRIMARY KEY (attendee_id)';
+END;
 /

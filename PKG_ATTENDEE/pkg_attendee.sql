@@ -3,7 +3,6 @@
     THIS SCRIPT SHOULD BE RUN BY EVENT_APP_ADMIN.
 */
 set serveroutput on;
-alter session set nls_timestamp_format = 'DD-MON-RR HH.MI';
 CREATE OR REPLACE PACKAGE pkg_attendee AS
     PROCEDURE ADD_ATTENDEE(
     PI_ATTENDEE_USERNAME  attendee.attendee_username%TYPE,
@@ -117,7 +116,7 @@ AS
         PI_ATTENDEE_GENDER
     );
     COMMIT;
-
+    DBMS_OUTPUT.PUT_LINE('Attendee Created');
 EXCEPTION
     WHEN E_USERNAME_EXISTS THEN
         DBMS_OUTPUT.PUT_LINE('PLEASE ENTER DIFFERENT USERNAME. USERNAME ALREADY IN USE');
@@ -148,6 +147,7 @@ AS
     E_INVALID_EVENT_NAME EXCEPTION;
     E_EVENT_NOT_FOUND EXCEPTION;
     E_TICKET_COUNT_INVALID EXCEPTION;
+    E_AGE_RESTRICTED EXCEPTION;
     V_ATTENDEE_ID ATTENDEE.attendee_id%TYPE;
     V_PROMOTION_ID PROMOTIONS.promotion_id%TYPE;
     V_TICKET_ID TICKET.ticket_id%TYPE;
@@ -157,14 +157,17 @@ AS
     v_discount_code PROMOTIONS.promotion_discount%type;
     v_ticket_max_booking_count_per_user TICKET.ticket_max_booking_count_per_user%type;
     v_promotion_enddate PROMOTIONS.promotion_enddate%type;
+    v_promotion_startdate PROMOTIONS.promotion_startdate%type;
     v_promition_no_used NUMBER;
     v_promotion_max_count PROMOTIONS.promotion_max_count%type;
     v_current_ticket_count NUMBER;
+    v_event_min_age NUMBER;
+    v_attendee_age NUMBER;
     BEGIN
    -- Validate ticket price
     BEGIN 
-    SELECT attendee_id
-    INTO V_ATTENDEE_ID
+    SELECT attendee_id,attendee_age
+    INTO V_ATTENDEE_ID,v_attendee_age
     FROM ATTENDEE
     WHERE attendee_username = PI_ATTENDEE_USERNAME;
     EXCEPTION
@@ -189,6 +192,12 @@ AS
         RAISE E_EVENT_NOT_FOUND;
     END IF;
     
+    SELECT event_type_age_restiricted into v_event_min_age FROM EVENTS e 
+    LEFT JOIN EVENT_TYPE et on et.event_type_id = e.event_type_id
+    WHERE e.event_id=V_EVENT_ID;
+    IF v_event_min_age > v_attendee_age THEN 
+    RAISE E_AGE_RESTRICTED;
+    END IF;
     -- Get ticket id based on ticket category name
     BEGIN
     SELECT ticket_id,ticket_max_booking_count_per_user
@@ -210,11 +219,12 @@ AS
         v_discount_code:=0;
         V_PROMOTION_ID:=-1;
         v_promotion_enddate:=TO_DATE('2099-02-28', 'YYYY-MM-DD');
+        v_promotion_enddate:=TO_DATE('2000-02-28', 'YYYY-MM-DD');
     ELSE 
     -- Get promotion id based on promotion code
     BEGIN
-    SELECT promotion_id,promotion_discount,promotion_enddate
-    INTO V_PROMOTION_ID, v_discount_code,v_promotion_enddate
+    SELECT promotion_id,promotion_discount,PROMOTION_STARTDATE,promotion_enddate
+    INTO V_PROMOTION_ID, v_discount_code,v_promotion_startdate,v_promotion_enddate
     FROM PROMOTIONS
     WHERE promotion_code = PI_PROMOTION_CODE AND event_id=V_EVENT_ID;
     EXCEPTION 
@@ -229,6 +239,7 @@ AS
     GROUP BY promotion_max_count;
     
     END IF;
+    
     -- Check if the promotion exists
     IF v_promotion_max_count-1 < v_promition_no_used AND v_promotion_max_count IS NOT NULL THEN 
         RAISE E_PROMOTION_NOT_FOUND;
@@ -237,7 +248,7 @@ AS
         RAISE E_PROMOTION_NOT_FOUND;
     END IF;
     
-    IF v_promotion_enddate < SYSTIMESTAMP THEN
+    IF v_promotion_enddate < SYSTIMESTAMP OR  v_promotion_startdate > SYSTIMESTAMP THEN
         RAISE E_PROMOTION_NOT_FOUND;
     END IF;
     
@@ -281,10 +292,12 @@ AS
         V_TICKET_ID
     );
     COMMIT;
-
+    DBMS_OUTPUT.PUT_LINE('Booking completed');
 EXCEPTION
     WHEN E_INVALID_TICKET_COUNT THEN
         DBMS_OUTPUT.PUT_LINE('Invalid booking ticket count.');
+    WHEN E_AGE_RESTRICTED THEN
+        DBMS_OUTPUT.PUT_LINE('Event is age restricted');
     WHEN E_INVALID_AMOUNT THEN
         DBMS_OUTPUT.PUT_LINE('Invalid booking amount. Amount should be 0 or greater.');
     WHEN E_ATTENDEE_NOT_FOUND THEN
@@ -505,6 +518,7 @@ SELECT COUNT(*)
     END IF;
     DELETE FROM ATTENDEE WHERE attendee_username = PI_ATTENDEE_USERNAME;
     COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Attendee Deleted');
 EXCEPTION  
     WHEN E_USERNAME_DOES_NOT_EXISTS THEN
         DBMS_OUTPUT.PUT_LINE('User does not exists.');
