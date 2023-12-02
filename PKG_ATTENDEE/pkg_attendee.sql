@@ -219,7 +219,7 @@ AS
         v_discount_code:=0;
         V_PROMOTION_ID:=-1;
         v_promotion_enddate:=TO_DATE('2099-02-28', 'YYYY-MM-DD');
-        v_promotion_enddate:=TO_DATE('2000-02-28', 'YYYY-MM-DD');
+        v_promotion_startdate:=TO_DATE('2000-02-28', 'YYYY-MM-DD');
     ELSE 
     -- Get promotion id based on promotion code
     BEGIN
